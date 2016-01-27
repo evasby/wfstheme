@@ -1,5 +1,5 @@
 <?php
-function landingNew_process_html(&$variables) {
+function wfstheme_process_html(&$variables) {
   // The JavaScript file to load.
   $js = 'http://html5shim.googlecode.com/svn/trunk/html5.js';
 
@@ -13,7 +13,7 @@ function landingNew_process_html(&$variables) {
   $variables['scripts'] .= $output;
   $variables['head_scripts'] = drupal_get_js('head_scripts');
 }
-function landingNew_preprocess_html(&$variables) {	
+function wfstheme_preprocess_html(&$variables) {	
   // Задаём JS-скрипты, которые останутся в head страницы.
   // Обратите внимание: эти скрипты должны работать БЕЗ библиотеки jQuery,
   // так как, из-за переноса всех скриптов в конец файла html.tpl.php, она будет вызвана позже.
