@@ -1,0 +1,10 @@
+include ../include/mixins
+- drupal_add_js('http://maps.googleapis.com/maps/api/js?v=3.exp');
+- drupal_add_js(drupal_get_path('theme', 'landingNew') . '/js/main.js');
+- //print drupal_get_path('theme', 'wfstheme');
+- //print $messages;
+block content
+	include ../same/index
+.hide
+	- //$output = module_invoke('webform', 'block_view', 'client-block-1');
+	- //print render($output['content']);

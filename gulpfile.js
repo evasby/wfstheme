@@ -13,7 +13,9 @@ var gulp = require('gulp'),
     plumberNotifier = require('gulp-plumber-notifier'),
     plumber = require('gulp-plumber'),
     wait = require('gulp-wait'),
-    imagemin = require('gulp-imagemin');
+    imagemin = require('gulp-imagemin'),
+    jade = require('gulp-jade'),
+    jadephp = require('gulp-jade-drupal');
 
 // server connect
 gulp.task('connect', function() {
@@ -29,6 +31,27 @@ gulp.task('html', function() {
   .pipe(connect.reload())
   .pipe(notify('HTML - Done!'));
 })
+
+// jade
+gulp.task('jade', function() {
+  gulp.src('app/jade/*.jade')
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('app'))
+    .pipe(connect.reload())
+    .pipe(notify('Jade - Done!'));
+});
+
+// jadephp
+gulp.task('jadephp', function() {
+  gulp.src('app/jade/drupal/*.jade')
+    .pipe(jadephp({
+      pretty: true
+    }))
+    .pipe(gulp.dest('app'))
+    .pipe(notify('Jade - Done!'));
+});
 
 // Error Notification
 function errorAlert(error){
@@ -84,12 +107,12 @@ gulp.task('js', function () {
 //});
 
 // Build
-//gulp.task('build', ['clean'], function () {
+//gulp.task('build', function () {
 //    return gulp.src('app/*.html')
 //      .pipe(useref())
 //      .pipe(gulpif('*.js', uglify()))
 //      .pipe(gulpif('*.css', minifyCss({compatibility: 'ie7'})))
-//      .pipe(gulp.dest('dist'));
+//      .pipe(gulp.dest('temp'));
 //});
 
 // Bower
@@ -105,8 +128,8 @@ gulp.task('watch', function () {
   gulp.watch('sass/**/*.scss', ['css']);
   gulp.watch('bower.json', ['bower']);
   gulp.watch('app/index.html', ['html']);
-  //gulp.watch('app/css/*', ['ftp']);
+  gulp.watch('app/jade/**/*.jade', ['jade', 'jadephp']);
 });
 
 // default
-gulp.task('default', ['connect', 'html', 'css', 'watch']);
+gulp.task('default', ['connect', 'jade', 'jadephp', 'html', 'css', 'watch']);
